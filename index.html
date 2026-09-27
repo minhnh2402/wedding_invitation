@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="theme-color" content="#6E1624">
+
+  <!-- ==== SỬA TAY PHẦN NÀY: Zalo/Facebook đọc thẻ này để hiện ảnh + tiêu đề khi gửi link ==== -->
+  <title>Thư mời cưới Hoàng Minh & Thu Hà</title>
+  <meta name="description" content="Chủ nhật, 20.12.2026. Rất hân hạnh được đón tiếp!">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Thư mời cưới Hoàng Minh & Thu Hà">
+  <meta property="og:description" content="Chủ nhật, 20.12.2026. Rất hân hạnh được đón tiếp!">
+  <!-- og:image phải là đường dẫn đầy đủ, ví dụ https://tenmien.com/images/og.jpg -->
+  <meta property="og:image" content="https://TEN-MIEN-CUA-BAN/images/og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <!-- ======================================================================================== -->
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%236E1624'/%3E%3Ctext x='50' y='70' font-size='56' text-anchor='middle' fill='%23F4E6D2'%3E囍%3C/text%3E%3C/svg%3E">
+  <link rel="preload" href="fonts/great-vibes-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/great-vibes-vietnamese-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="fonts/fonts.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="is-locked">
+
+  <!-- Màn hình mở thiệp: hai cánh cửa giấy kem, con dấu sáp ở giữa -->
+  <div id="cover" class="cover">
+    <div class="cover__door cover__door--left" aria-hidden="true"></div>
+    <div class="cover__door cover__door--right" aria-hidden="true"></div>
+    <div class="cover__content">
+      <p class="cover__kicker">Thư mời cưới</p>
+      <p class="cover__names script"><span data-bind="groom.name"></span><span class="cover__amp">&amp;</span><span data-bind="bride.name"></span></p>
+      <p class="cover__guest" id="coverGuest" hidden>Gửi <span></span></p>
+      <button class="seal" id="openBtn" type="button" aria-label="Mở thiệp">
+        <svg viewBox="0 0 120 120" aria-hidden="true">
+          <path class="seal__wax" d="M60 4c7 0 9 6 15 8s12-2 17 3 1 11 4 17 9 7 9 15-6 9-8 15 2 12-3 17-11 1-17 4-8 9-15 9-9-6-15-8-12 2-17-3-1-11-4-17-9-8-9-15 6-9 8-15-2-12 3-17 11-1 17-4 8-9 15-9Z"/>
+          <circle class="seal__ring" cx="60" cy="60" r="38"/>
+          <text class="seal__glyph" x="60" y="77" text-anchor="middle">囍</text>
+        </svg>
+      </button>
+      <p class="cover__hint">Chạm vào con dấu để mở thiệp</p>
+    </div>
+  </div>
+
+  <main class="card" id="card">
+    <!-- Nội dung được dựng từ config.js bởi script.js -->
+  </main>
+
+  <button class="music" id="musicBtn" type="button" aria-label="Bật nhạc" hidden>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18.5a2.5 2.5 0 1 1-2.5-2.5c.53 0 1 .12 1.5.34V5.5l11-2v12a2.5 2.5 0 1 1-2.5-2.5c.53 0 1 .12 1.5.34V7.3l-9 1.64V18.5Z"/></svg>
+  </button>
+  <audio id="bgm" loop preload="none"></audio>
+
+  <div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Xem ảnh">
+    <button class="lightbox__close" type="button" aria-label="Đóng">×</button>
+    <button class="lightbox__nav lightbox__nav--prev" type="button" aria-label="Ảnh trước">‹</button>
+    <img class="lightbox__img" alt="">
+    <button class="lightbox__nav lightbox__nav--next" type="button" aria-label="Ảnh sau">›</button>
+    <p class="lightbox__count"></p>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="lunar.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
