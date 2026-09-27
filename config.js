@@ -7,16 +7,16 @@ window.WEDDING = {
   groom: {
     name: 'Hoàng Minh',                 // tên hiển thị lớn (chữ viết tay)
     role: 'Chú rể',
-    father: 'Ông Nguyễn Văn An',
-    mother: 'Bà Trần Thị Bình',
-    address: 'Phường Tân Định, TP. Hồ Chí Minh',
+    father: 'Ông Bình',
+    mother: 'Bà Hoanh',
+    address: 'Long Khánh',
   },
   bride: {
-    name: 'Thu Hà',
+    name: 'Huỳnh Tuyền',
     role: 'Cô dâu',
-    father: 'Ông Lê Văn Cường',
-    mother: 'Bà Phạm Thị Dung',
-    address: 'Xã Vĩnh Phong, An Giang',
+    father: 'Ông Triều',
+    mother: 'Bà Hương',
+    address: 'Mỹ Tho',
   },
 
   // Ngày giờ chính (dùng cho trang đầu, lịch và đếm ngược). Giữ đúng định dạng.
@@ -35,7 +35,7 @@ window.WEDDING = {
       title: 'Lễ Vu Quy',
       datetime: '2026-12-19T09:00:00+07:00',
       place: 'Tư gia nhà gái',
-      address: 'Tổ 4, Ấp Đập Đá 2, Xã Vĩnh Phong, An Giang',
+      address: 'xxxxxx',
       mapLink: 'https://maps.google.com/?q=Vinh+Phong+An+Giang',
       side: 'nhagai',
     },
@@ -43,7 +43,7 @@ window.WEDDING = {
       title: 'Lễ Thành Hôn',
       datetime: '2026-12-20T09:00:00+07:00',
       place: 'Tư gia nhà trai',
-      address: 'Phường Tân Định, TP. Hồ Chí Minh',
+      address: 'xxxxxx',
       mapLink: 'https://maps.google.com/?q=Tan+Dinh+Ho+Chi+Minh',
       side: 'nhatrai',
     },
@@ -86,7 +86,7 @@ window.WEDDING = {
   gifts: [
     {
       label: 'Chú rể',
-      bankName: 'Vietcombank',
+      bankName: 'VietinBank',
       bankBin: '970436',
       accountNo: '0123456789',
       accountName: 'NGUYEN HOANG MINH',
@@ -96,8 +96,8 @@ window.WEDDING = {
       label: 'Cô dâu',
       bankName: 'MB Bank',
       bankBin: '970422',
-      accountNo: '0987654321',
-      accountName: 'LE THU HA',
+      accountNo: '0123456789',
+      accountName: 'HUYNH THANH TUYEN',
       qrImage: '',
     },
   ],
