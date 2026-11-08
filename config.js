@@ -5,18 +5,18 @@
    ===================================================================== */
 window.WEDDING = {
   groom: {
-    name: 'Hoàng Minh',                 // tên hiển thị lớn (chữ viết tay)
+    name: 'Phêrô Trần Công Hiển',                 // tên hiển thị lớn (chữ viết tay)
     role: 'Chú rể',
-    father: 'Ông Bình',
-    mother: 'Bà Hoanh',
-    address: 'Long Khánh',
+    father: 'Ông Phêrô Trần Công Đức',
+    mother: 'Bà Maria Hà Thị Bạch Tuyết',
+    address: 'Tân An, Đồng Nai',
   },
   bride: {
-    name: 'Huỳnh Tuyền',
+    name: 'Anna Nguyễn Quỳnh Minh Thúy',
     role: 'Cô dâu',
-    father: 'Ông Triều',
-    mother: 'Bà Hương',
-    address: 'Mỹ Tho',
+    father: 'Ông Nguyễn Minh Luân',
+    mother: 'Bà Nguyễn Thị Quỳnh Vân',
+    address: 'Tam Hiệp, Đồng Nai',
   },
 
   // Ngày giờ chính (dùng cho trang đầu, lịch và đếm ngược). Giữ đúng định dạng.
@@ -32,28 +32,28 @@ window.WEDDING = {
      Gửi link kèm ?ben=nhatrai hoặc ?ben=nhagai để lọc (xem README). */
   events: [
     {
-      title: 'Lễ Vu Quy',
-      datetime: '2026-12-19T09:00:00+07:00',
-      place: 'Tư gia nhà gái',
-      address: 'xxxxxx',
-      mapLink: 'https://maps.google.com/?q=Vinh+Phong+An+Giang',
-      side: 'nhagai',
-    },
-    {
-      title: 'Lễ Thành Hôn',
-      datetime: '2026-12-20T09:00:00+07:00',
-      place: 'Tư gia nhà trai',
-      address: 'xxxxxx',
-      mapLink: 'https://maps.google.com/?q=Tan+Dinh+Ho+Chi+Minh',
+      title: 'Lễ Tân Hôn',
+      datetime: '2026-12-05T03:00:00+07:00',
+      place: 'Thánh Đường Giáo xứ Thái Hiệp',
+      address: 'Số 94/16 (hoặc 93/58) Khu phố 8, phường Tân Phong, TP. Biên Hòa, tỉnh Đồng Nai (gần trục đường Nguyễn Ái Quốc)',
+      mapLink: 'https://share.google/aL3ENNfxP2PgKkdNr',
       side: 'nhatrai',
     },
     {
-      title: 'Tiệc Cưới',
-      datetime: '2026-12-20T11:00:00+07:00',
-      place: 'Trung tâm Hội nghị Tiệc cưới Riverside Palace',
-      address: '360D Bến Vân Đồn, Phường Khánh Hội, TP. Hồ Chí Minh',
-      mapLink: 'https://maps.google.com/?q=Riverside+Palace+Ben+Van+Don',
-      side: 'all',
+      title: 'Tiệc rượu',
+      datetime: '2026-12-27T11:30:00+07:00',
+      place: 'Tư Gia Nhà Trai',
+      address: '2299, Đường 768, Ấp Thái An, Xã Tân An, Đồng Nai',
+      mapLink: 'xxxxxx',
+      side: 'nhatrai',
+    },
+    {
+      title: 'Lễ Vu Quy',
+      datetime: '2026-12-27T08:00:00+07:00',
+      place: 'Tư Gia Nhà Gái',
+      address: 'Sảnh Grand Opera - Lầu 2, 628 Phạm Văn Thuận, phường Tam Hiệp, Đồng Nai',
+      mapLink: 'https://share.google/10Ak2R8IGHMNXxBDa',
+      side: 'nhagai',
     },
   ],
 
