@@ -105,7 +105,7 @@ Có thể gõ thẳng dấu tiếng Việt và dấu cách vào link, trình duy
 - **Màu**: sửa các biến ở đầu `style.css` (`--kem`, `--do`, `--vang`…).
 - **Font**: thay file trong `fonts/` và sửa `fonts/fonts.css`, `--font-script`, `--font-body`.
   Nhớ chọn font có bộ ký tự tiếng Việt.
-- **Ẩn một phần**: để trống trong config (`album: []`, `music: ''`, `map.embedUrl: ''`, `gifts: []`).
+- **Ẩn một phần**: để trống trong config (`album: []`, `music: ''`, `showMaps: false`, `gifts: []`).
 
 ## 7. Kiểm tra trước khi gửi
 

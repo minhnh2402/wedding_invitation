@@ -27,6 +27,15 @@
   function dateLine(d) {
     return `${THU[d.getDay()]}, ${pad(d.getDate())}.${pad(d.getMonth() + 1)}.${d.getFullYear()}`;
   }
+  const fullName = (p) => [p.saint, p.name].filter(Boolean).join(' ');
+  const mapsSearch = (q) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}`;
+  const mapsEmbed = (q) => `https://www.google.com/maps?q=${encodeURIComponent(q)}&output=embed`;
+  const mapUrl = (e) => e.mapLink || mapsSearch(e.mapQuery || e.address);
+  const nameBlock = (p) => `
+        <span class="hero__person">
+          ${p.saint ? `<small class="hero__saint">${esc(p.saint)}</small>` : ''}
+          <span class="script">${esc(p.name)}</span>
+        </span>`;
   const timeText = (d) => `${pad(d.getHours())} giờ ${d.getMinutes() ? pad(d.getMinutes()) : ''}`.trim();
 
   /* ---------- Các phần của thiệp ---------- */
@@ -34,12 +43,12 @@
     return `
     <section class="hero" id="trang-dau">
       <figure class="arch">
-        <img src="${esc(W.coverImage)}" alt="${esc(W.groom.name)} và ${esc(W.bride.name)}" width="1080" height="1440" fetchpriority="high">
+        <img src="${esc(W.coverImage)}" alt="${esc(fullName(W.groom))} và ${esc(fullName(W.bride))}" width="1080" height="1440" fetchpriority="high">
       </figure>
-      <h1 class="hero__names script">
-        <span>${esc(W.groom.name)}</span>
-        <span class="hero__amp">&amp;</span>
-        <span>${esc(W.bride.name)}</span>
+      <h1 class="hero__names">
+        ${nameBlock(W.groom)}
+        <span class="hero__amp script">&amp;</span>
+        ${nameBlock(W.bride)}
       </h1>
       <div class="hero__date">
         <span>${THU[main.getDay()]}</span>
@@ -80,7 +89,7 @@
         <p class="event__lunar">Tức ${Lunar.lunarText(d)}</p>
         <p class="event__place">${esc(e.place)}</p>
         <p class="event__addr">${esc(e.address)}</p>
-        ${e.mapLink ? `<a class="link" href="${esc(e.mapLink)}" target="_blank" rel="noopener">Xem chỉ đường</a>` : ''}
+        <a class="link" href="${esc(mapUrl(e))}" target="_blank" rel="noopener">Xem chỉ đường</a>
       </li>`;
     }).join('');
     return `
@@ -123,16 +132,21 @@
   }
 
   function mapSection() {
-    if (!W.map || !W.map.embedUrl) return '';
+    if (W.showMaps === false || !events.length) return '';
+    const items = events.map((e) => `
+      <div class="venue">
+        <p class="venue__event">${esc(e.title)}</p>
+        <p class="venue__name">${esc(e.place)}</p>
+        <p class="venue__addr">${esc(e.address)}</p>
+        <div class="venue__map">
+          <iframe src="${esc(mapsEmbed(e.mapQuery || e.address))}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Bản đồ ${esc(e.place)}"></iframe>
+        </div>
+        <a class="btn" href="${esc(mapUrl(e))}" target="_blank" rel="noopener">Mở Google Maps chỉ đường</a>
+      </div>`).join('');
     return `
-    <section class="section venue" id="dia-diem">
+    <section class="section venues" id="dia-diem">
       ${heading('Địa điểm')}
-      <p class="venue__name">${esc(W.map.title)}</p>
-      <p class="venue__addr">${esc(W.map.address)}</p>
-      <div class="venue__map">
-        <iframe src="${esc(W.map.embedUrl)}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Bản đồ ${esc(W.map.title)}"></iframe>
-      </div>
-      <a class="btn" href="${esc(W.map.link)}" target="_blank" rel="noopener">Mở Google Maps chỉ đường</a>
+      ${items}
     </section>`;
   }
 
@@ -140,7 +154,7 @@
     if (!W.album || !W.album.length) return '';
     const items = W.album.map((n, i) => `
       <a class="album__item" href="images/album/${esc(n)}.webp" data-index="${i}">
-        <img src="images/thumb/${esc(n)}.webp" alt="Ảnh cưới ${i + 1}" loading="lazy" decoding="async">
+        <img src="images/thumb/${esc(n)}.webp" onload="this.naturalWidth > this.naturalHeight && this.parentNode.classList.add('is-wide')" alt="Ảnh cưới ${i + 1}" loading="lazy" decoding="async">
       </a>`).join('');
     return `
     <section class="section" id="album">
@@ -191,7 +205,7 @@
       const qr = g.qrImage || `https://img.vietqr.io/image/${encodeURIComponent(g.bankBin)}-${encodeURIComponent(g.accountNo)}-qr_only.png?accountName=${encodeURIComponent(g.accountName)}&addInfo=${encodeURIComponent('Mung cuoi')}`;
       return `
       <div class="gift" role="tabpanel" data-panel="${i}" ${i ? 'hidden' : ''}>
-        <div class="gift__qr"><img src="${esc(qr)}" alt="Mã QR chuyển khoản ${esc(g.label)}" loading="lazy" width="220" height="220"></div>
+        <div class="gift__qr"><img src="${esc(qr)}" alt="Mã QR chuyển khoản ${esc(g.label)}" loading="lazy" width="220"></div>
         <p class="gift__bank">${esc(g.bankName)}</p>
         <p class="gift__no">${esc(g.accountNo)}</p>
         <p class="gift__owner">${esc(g.accountName)}</p>
@@ -202,7 +216,7 @@
     <section class="section gifts" id="mung-cuoi">
       ${heading('Gửi mừng cưới')}
       <p class="section__intro">Nếu không tiện đến chung vui, bạn có thể gửi lời chúc qua mã QR bên dưới.</p>
-      <div class="tabs" role="tablist">${tabs}</div>
+      ${W.gifts.length > 1 ? `<div class="tabs" role="tablist">${tabs}</div>` : ''}
       ${panels}
     </section>`;
   }
@@ -211,7 +225,7 @@
     return `
     <footer class="closing">
       <p class="closing__text script">${esc(W.closing)}</p>
-      <p class="closing__names">${esc(W.groom.name)} &amp; ${esc(W.bride.name)}</p>
+      <p class="closing__names">${esc(fullName(W.groom))} &amp; ${esc(fullName(W.bride))}</p>
     </footer>`;
   }
 

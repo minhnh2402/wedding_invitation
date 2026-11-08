@@ -113,7 +113,7 @@ a { color: inherit; }
   transition: opacity .45s ease;
 }
 .cover__kicker { font-size: 18px; letter-spacing: .06em; color: var(--muc-nhat); }
-.cover__names { font-size: clamp(42px, 12vw, 54px); white-space: nowrap; color: var(--do); margin: 10px 0 6px; display: flex; flex-direction: column; align-items: center; }
+.cover__names { font-size: clamp(32px, 9vw, 42px); text-wrap: balance; color: var(--do); margin: 10px 0 6px; display: flex; flex-direction: column; align-items: center; }
 .cover__amp { font-size: 36px; color: var(--vang); margin: -6px 0; }
 .cover__guest { font-style: italic; color: var(--muc-nhat); margin-bottom: 4px; }
 .cover__guest span { color: var(--do); font-weight: 600; font-style: normal; }
@@ -152,8 +152,15 @@ a { color: inherit; }
   border: 1px solid var(--vang); border-radius: 999px 999px 0 0;
   pointer-events: none;
 }
-.hero__names { color: var(--do); font-size: clamp(44px, 14vw, 62px); white-space: nowrap; display: flex; flex-direction: column; align-items: center; }
-.hero__amp { font-size: 40px; color: var(--vang); margin: -10px 0 -4px; }
+.hero__names { color: var(--do); display: flex; flex-direction: column; align-items: center; gap: 2px; }
+/* Họ tên dài (4–5 chữ) nên cỡ chữ co theo màn hình; tên thánh tách thành dòng nhỏ phía trên */
+.hero__person { display: flex; flex-direction: column; align-items: center; }
+.hero__person .script { font-size: clamp(32px, 9.4vw, 44px); text-wrap: balance; }
+.hero__saint {
+  font: 600 13px/1 var(--font-body); letter-spacing: .28em; text-transform: uppercase;
+  color: var(--vang); margin-bottom: 4px; padding-left: .28em;
+}
+.hero__amp { font-size: 36px; color: var(--vang); margin: 2px 0 6px; line-height: 1; }
 .hero__date {
   display: flex; align-items: center; justify-content: center; gap: 14px;
   margin: 26px 0 8px; font-size: 18px; color: var(--muc-nhat);
@@ -207,15 +214,18 @@ a { color: inherit; }
 .countdown__done { font-style: italic; color: var(--do); font-size: 20px; }
 
 /* ---------- Địa điểm ---------- */
+.venue + .venue { margin-top: 40px; padding-top: 34px; border-top: 1px dashed rgba(169, 133, 82, .5); }
+.venue__event { font-weight: 600; font-size: 15px; letter-spacing: .08em; text-transform: uppercase; color: var(--vang); margin-bottom: 4px; }
 .venue__name { font-weight: 600; font-size: 20px; color: var(--do-dam); }
-.venue__addr { color: var(--muc-nhat); font-size: 17px; margin-bottom: 20px; }
+.venue__addr { color: var(--muc-nhat); font-size: 16px; line-height: 1.5; margin-bottom: 18px; }
 .venue__map { border: 1px solid var(--vang); padding: 6px; background: var(--kem-sang); margin-bottom: 22px; }
 .venue__map iframe { display: block; width: 100%; height: 260px; border: 0; filter: sepia(.25) saturate(.9); }
 
 /* ---------- Album ---------- */
-.album { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.album__item { display: block; aspect-ratio: 3 / 4; overflow: hidden; background: var(--kem-dam); }
-.album__item:first-child { grid-column: 1 / -1; aspect-ratio: 4 / 3; }
+/* Ảnh dọc 2:3 nằm 2 cột, ảnh ngang 3:2 trải hết hàng (script gắn .is-wide) — đúng tỉ lệ ảnh nên không bị cắt */
+.album { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; grid-auto-flow: dense; }
+.album__item { display: block; aspect-ratio: 2 / 3; overflow: hidden; background: var(--kem-dam); }
+.album__item.is-wide { grid-column: 1 / -1; aspect-ratio: 3 / 2; }
 .album__item img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
 .album__item:hover img { transform: scale(1.04); }
 
@@ -270,7 +280,7 @@ a { color: inherit; }
   width: 236px; margin: 0 auto 18px; padding: 8px; background: #fff;
   border: 1px solid var(--vang); outline: 1px solid rgba(169, 133, 82, .4); outline-offset: 4px;
 }
-.gift__qr img { width: 220px; height: 220px; }
+.gift__qr img { width: 220px; height: auto; } /* giữ đúng tỉ lệ ảnh QR (ảnh từ app ngân hàng thường không vuông) */
 .gift__bank { color: var(--muc-nhat); font-size: 17px; }
 .gift__no { font-size: 28px; font-weight: 600; color: var(--do-dam); letter-spacing: .06em; font-variant-numeric: tabular-nums; }
 .gift__owner { letter-spacing: .08em; margin-bottom: 18px; font-size: 16px; }
@@ -298,7 +308,6 @@ a { color: inherit; }
   body { font-size: 17px; }
   .section { padding-left: 24px; padding-right: 24px; }
   .section + .section { margin: 0 24px; }
-  .hero__names { font-size: 54px; }
   .countdown > div { padding: 0 10px; }
 }
 

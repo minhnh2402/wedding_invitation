@@ -33,7 +33,9 @@ for f in "$SRC"/*.{jpg,jpeg,png,heic,webp}; do
       echo "✓ ảnh bìa  → images/bia.webp"
       continue ;;
     og)
-      $IM "$f" -auto-orient -strip -resize "1200x630^" -gravity center -extent 1200x630 -quality 82 images/og.jpg
+      # Giữ nguyên toàn bộ ảnh (không cắt), đặt lên nền là chính ảnh đó làm mờ
+      $IM \( "$f" -auto-orient -resize "1200x630^" -gravity center -extent 1200x630 -blur 0x24 -modulate 75 \) \
+          \( "$f" -auto-orient -resize "1200x590" \) -gravity center -composite -strip -quality 85 images/og.jpg
       echo "✓ ảnh xem trước → images/og.jpg"
       continue ;;
   esac

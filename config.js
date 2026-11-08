@@ -5,14 +5,16 @@
    ===================================================================== */
 window.WEDDING = {
   groom: {
-    name: 'Phêrô Trần Công Hiển',                 // tên hiển thị lớn (chữ viết tay)
+    saint: 'Phêrô',                               // tên thánh (hiện dòng nhỏ phía trên), để '' nếu không có
+    name: 'Trần Công Hiển',                       // họ tên hiển thị lớn (chữ viết tay)
     role: 'Chú rể',
     father: 'Ông Phêrô Trần Công Đức',
     mother: 'Bà Maria Hà Thị Bạch Tuyết',
     address: 'Tân An, Đồng Nai',
   },
   bride: {
-    name: 'Anna Nguyễn Quỳnh Minh Thúy',
+    saint: 'Anna',
+    name: 'Nguyễn Quỳnh Minh Thúy',
     role: 'Cô dâu',
     father: 'Ông Nguyễn Minh Luân',
     mother: 'Bà Nguyễn Thị Quỳnh Vân',
@@ -37,6 +39,7 @@ window.WEDDING = {
       place: 'Thánh Đường Giáo xứ Thái Hiệp',
       address: 'Số 94/16 (hoặc 93/58) Khu phố 8, phường Tân Phong, TP. Biên Hòa, tỉnh Đồng Nai (gần trục đường Nguyễn Ái Quốc)',
       mapLink: 'https://share.google/aL3ENNfxP2PgKkdNr',
+      mapQuery: 'Nhà thờ Giáo xứ Thái Hiệp, Tân Phong, Biên Hòa, Đồng Nai', // dùng cho bản đồ nhúng ở mục Địa điểm
       side: 'nhatrai',
     },
     {
@@ -44,7 +47,8 @@ window.WEDDING = {
       datetime: '2026-12-27T11:30:00+07:00',
       place: 'Tư Gia Nhà Trai',
       address: '2299, Đường 768, Ấp Thái An, Xã Tân An, Đồng Nai',
-      mapLink: 'xxxxxx',
+      mapLink: '',                                  // để '' sẽ tự tạo link Google Maps từ địa chỉ
+      mapQuery: '2299 Đường 768, Thái An, Tân An, Vĩnh Cửu, Đồng Nai',
       side: 'nhatrai',
     },
     {
@@ -53,24 +57,20 @@ window.WEDDING = {
       place: 'Tư Gia Nhà Gái',
       address: 'Sảnh Grand Opera - Lầu 2, 628 Phạm Văn Thuận, phường Tam Hiệp, Đồng Nai',
       mapLink: 'https://share.google/10Ak2R8IGHMNXxBDa',
+      mapQuery: '628 Phạm Văn Thuận, Tam Hiệp, Biên Hòa, Đồng Nai',
       side: 'nhagai',
     },
   ],
 
-  /* Bản đồ nhúng: Google Maps → tìm địa điểm → Chia sẻ → Nhúng bản đồ →
-     copy phần trong src="..." dán vào đây. Để '' nếu không muốn hiện bản đồ. */
-  map: {
-    title: 'Riverside Palace',
-    address: '360D Bến Vân Đồn, Phường Khánh Hội, TP. Hồ Chí Minh',
-    embedUrl: 'https://www.google.com/maps?q=Riverside+Palace+360D+Ben+Van+Don&output=embed',
-    link: 'https://maps.google.com/?q=Riverside+Palace+360D+Ben+Van+Don',
-  },
+  /* Mục "Địa điểm" tự liệt kê các lễ ở trên (theo bên khách) kèm bản đồ nhúng,
+     lấy từ `mapQuery` (hoặc `address` nếu không có). Đặt showMaps: false để ẩn mục này. */
+  showMaps: true,
 
   coverImage: 'images/bia.webp',     // ảnh chính ở trang đầu (dọc, 1080×1440)
 
   // Danh sách ảnh album: tên file trong images/album và images/thumb (cùng tên).
   // Script tools/toi-uu-anh.sh sẽ in sẵn dòng này cho bạn copy.
-  album: ['01', '02', '03', '04', '05', '06', '07'],
+  album: ['01', '02', '03', '04', '05'],
 
   music: 'music/nhac-nen.mp3',       // để '' nếu không dùng nhạc
 
@@ -85,20 +85,11 @@ window.WEDDING = {
      Muốn dùng ảnh QR tải từ app ngân hàng thì điền qrImage: 'images/qr-chu-re.webp'. */
   gifts: [
     {
-      label: 'Chú rể',
-      bankName: 'VietinBank',
-      bankBin: '970436',
-      accountNo: '0123456789',
-      accountName: 'NGUYEN HOANG MINH',
-      qrImage: '',
-    },
-    {
       label: 'Cô dâu',
-      bankName: 'MB Bank',
-      bankBin: '970422',
-      accountNo: '0123456789',
-      accountName: 'HUYNH THANH TUYEN',
-      qrImage: '',
+      bankName: 'Vietcombank',
+      accountNo: '1045986249',
+      accountName: 'NGUYEN QUYNH MINH THUY',
+      qrImage: 'images/qr-co-dau.png',
     },
   ],
 
