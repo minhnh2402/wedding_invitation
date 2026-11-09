@@ -6,7 +6,9 @@
 window.WEDDING = {
   groom: {
     saint: 'Phêrô',                               // tên thánh (hiện dòng nhỏ phía trên), để '' nếu không có
-    name: 'Trần Công Hiển',                       // họ tên hiển thị lớn (chữ viết tay)
+    name: 'Trần Công Hiển',                       // họ tên đầy đủ (hiện bên trong thiệp)
+    shortName: 'Công Hiển',                       // tên ngắn (hiện ở màn hình "Thư mời cưới" và cuối thiệp)
+    photo: 'images/thumb/01.webp',                // ảnh riêng chú rể (dọc 2:3) — đang dùng tạm ảnh album
     role: 'Chú rể',
     father: 'Ông Phêrô Trần Công Đức',
     mother: 'Bà Maria Hà Thị Bạch Tuyết',
@@ -15,6 +17,8 @@ window.WEDDING = {
   bride: {
     saint: 'Anna',
     name: 'Nguyễn Quỳnh Minh Thúy',
+    shortName: 'Minh Thúy',
+    photo: 'images/thumb/02.webp',                // ảnh riêng cô dâu (dọc 2:3) — đang dùng tạm ảnh album
     role: 'Cô dâu',
     father: 'Ông Nguyễn Minh Luân',
     mother: 'Bà Nguyễn Thị Quỳnh Vân',
@@ -22,7 +26,7 @@ window.WEDDING = {
   },
 
   // Ngày giờ chính (dùng cho trang đầu, lịch và đếm ngược). Giữ đúng định dạng.
-  mainDate: '2026-12-20T11:00:00+07:00',
+  mainDate: '2026-12-06T15:00:00+07:00',
 
   quote: 'Hôn nhân là chuyện cả đời,\nYêu người vừa ý, cưới người mình thương.',
 
@@ -34,22 +38,13 @@ window.WEDDING = {
      Gửi link kèm ?ben=nhatrai hoặc ?ben=nhagai để lọc (xem README). */
   events: [
     {
-      title: 'Lễ Tân Hôn',
-      datetime: '2026-12-05T03:00:00+07:00',
+      title: 'Thánh Lễ Hôn Phối',
+      datetime: '2026-12-06T15:00:00+07:00',
       place: 'Thánh Đường Giáo xứ Thái Hiệp',
       address: 'Số 94/16 (hoặc 93/58) Khu phố 8, phường Tân Phong, TP. Biên Hòa, tỉnh Đồng Nai (gần trục đường Nguyễn Ái Quốc)',
       mapLink: 'https://share.google/aL3ENNfxP2PgKkdNr',
       mapQuery: 'Nhà thờ Giáo xứ Thái Hiệp, Tân Phong, Biên Hòa, Đồng Nai', // dùng cho bản đồ nhúng ở mục Địa điểm
-      side: 'nhatrai',
-    },
-    {
-      title: 'Tiệc rượu',
-      datetime: '2026-12-27T11:30:00+07:00',
-      place: 'Tư Gia Nhà Trai',
-      address: '2299, Đường 768, Ấp Thái An, Xã Tân An, Đồng Nai',
-      mapLink: '',                                  // để '' sẽ tự tạo link Google Maps từ địa chỉ
-      mapQuery: '2299 Đường 768, Thái An, Tân An, Vĩnh Cửu, Đồng Nai',
-      side: 'nhatrai',
+      side: 'all',                                  // hiện cho cả khách nhà trai và nhà gái
     },
     {
       title: 'Lễ Vu Quy',

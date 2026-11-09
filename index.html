@@ -8,11 +8,11 @@
 
   <!-- ==== SỬA TAY PHẦN NÀY: Zalo/Facebook đọc thẻ này để hiện ảnh + tiêu đề khi gửi link ==== -->
   <title>Thư mời cưới Công Hiển &amp; Minh Thúy</title>
-  <meta name="description" content="Chủ nhật, 20.12.2026. Rất hân hạnh được đón tiếp!">
+  <meta name="description" content="Chủ nhật, 06.12.2026. Rất hân hạnh được đón tiếp!">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://minhnh2402.github.io/wedding_invitation/">
   <meta property="og:title" content="Thư mời cưới Công Hiển &amp; Minh Thúy">
-  <meta property="og:description" content="Chủ nhật, 20.12.2026. Rất hân hạnh được đón tiếp!">
+  <meta property="og:description" content="Chủ nhật, 06.12.2026. Rất hân hạnh được đón tiếp!">
   <!-- og:image phải là đường dẫn đầy đủ, ví dụ https://tenmien.com/images/og.jpg -->
   <meta property="og:image" content="https://minhnh2402.github.io/wedding_invitation/images/og.jpg">
   <meta property="og:image:width" content="1200">
@@ -20,10 +20,11 @@
   <!-- ======================================================================================== -->
 
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%236E1624'/%3E%3Ctext x='50' y='70' font-size='56' text-anchor='middle' fill='%23F4E6D2'%3E囍%3C/text%3E%3C/svg%3E">
-  <link rel="preload" href="fonts/great-vibes-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="fonts/great-vibes-vietnamese-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="fonts/fonts.css">
-  <link rel="stylesheet" href="style.css">
+  <link rel="preload" href="fonts/dancing-script-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/dancing-script-vietnamese-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <!-- ?v=… : mỗi lần sửa code thì tăng số này để trình duyệt/Zalo tải bản mới -->
+  <link rel="stylesheet" href="fonts/fonts.css?v=3">
+  <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body class="is-locked">
 
@@ -33,7 +34,7 @@
     <div class="cover__door cover__door--right" aria-hidden="true"></div>
     <div class="cover__content">
       <p class="cover__kicker">Thư mời cưới</p>
-      <p class="cover__names script"><span data-bind="groom.name"></span><span class="cover__amp">&amp;</span><span data-bind="bride.name"></span></p>
+      <p class="cover__names name-font"><span data-bind="groom.shortName|groom.name"></span><span class="cover__amp">&amp;</span><span data-bind="bride.shortName|bride.name"></span></p>
       <p class="cover__guest" id="coverGuest" hidden>Gửi <span></span></p>
       <button class="seal" id="openBtn" type="button" aria-label="Mở thiệp">
         <svg viewBox="0 0 120 120" aria-hidden="true">
@@ -63,8 +64,8 @@
     <p class="lightbox__count"></p>
   </div>
 
-  <script src="config.js"></script>
-  <script src="lunar.js"></script>
-  <script src="script.js"></script>
+  <script src="config.js?v=3"></script>
+  <script src="lunar.js?v=3"></script>
+  <script src="script.js?v=3"></script>
 </body>
 </html>

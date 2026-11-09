@@ -34,7 +34,7 @@
   const nameBlock = (p) => `
         <span class="hero__person">
           ${p.saint ? `<small class="hero__saint">${esc(p.saint)}</small>` : ''}
-          <span class="script">${esc(p.name)}</span>
+          <span class="name-font">${esc(p.name)}</span>
         </span>`;
   const timeText = (d) => `${pad(d.getHours())} giờ ${d.getMinutes() ? pad(d.getMinutes()) : ''}`.trim();
 
@@ -59,22 +59,29 @@
     </section>`;
   }
 
+  /* Giới thiệu hai bên: ảnh + thông tin so le (chú rể ảnh trái, cô dâu ảnh phải) */
   function families() {
-    const col = (p, label) => `
-      <div class="family">
-        <h3 class="family__side">${label}</h3>
-        <p>${esc(p.father)}</p>
-        <p>${esc(p.mother)}</p>
-        <p class="family__addr">${esc(p.address)}</p>
-      </div>`;
+    const person = (p, side, role, flip) => `
+      <article class="couple${flip ? ' couple--flip' : ''}">
+        <figure class="couple__photo">
+          ${p.photo ? `<img src="${esc(p.photo)}" alt="${esc(role)} ${esc(p.name)}" loading="lazy" decoding="async">` : ''}
+        </figure>
+        <div class="couple__info">
+          <h3 class="couple__side">${side}</h3>
+          <p class="couple__parent">${esc(p.father)}</p>
+          <p class="couple__parent">${esc(p.mother)}</p>
+          <p class="couple__addr">${esc(p.address)}</p>
+          <p class="couple__role">${esc(role)}</p>
+          ${p.saint ? `<p class="couple__saint">${esc(p.saint)}</p>` : ''}
+          <p class="couple__name name-font">${esc(p.name)}</p>
+        </div>
+      </article>`;
     return `
     <section class="section families" id="hai-nha">
       <p class="quote">${esc(W.quote).replace(/\n/g, '<br>')}</p>
-      <div class="families__grid">
-        ${col(W.groom, 'Nhà trai')}
-        <span class="families__hy" aria-hidden="true">囍</span>
-        ${col(W.bride, 'Nhà gái')}
-      </div>
+      <span class="families__hy" aria-hidden="true">囍</span>
+      ${person(W.groom, 'Nhà trai', W.groom.role || 'Chú rể', false)}
+      ${person(W.bride, 'Nhà gái', W.bride.role || 'Cô dâu', true)}
     </section>`;
   }
 
@@ -225,7 +232,7 @@
     return `
     <footer class="closing">
       <p class="closing__text script">${esc(W.closing)}</p>
-      <p class="closing__names">${esc(fullName(W.groom))} &amp; ${esc(fullName(W.bride))}</p>
+      <p class="closing__names">${esc(W.groom.shortName || W.groom.name)} &amp; ${esc(W.bride.shortName || W.bride.name)}</p>
     </footer>`;
   }
 
@@ -233,7 +240,9 @@
   $('#card').innerHTML = hero() + families() + invitation() + calendar() + mapSection() + album() + rsvp() + gifts() + footer();
 
   $$('[data-bind]').forEach((el) => {
-    el.textContent = el.dataset.bind.split('.').reduce((o, k) => o && o[k], W) || '';
+    // data-bind="groom.shortName|groom.name": lấy giá trị đầu tiên có trong config
+    const get = (path) => path.split('.').reduce((o, k) => o && o[k], W);
+    el.textContent = el.dataset.bind.split('|').map(get).find(Boolean) || '';
   });
   if (guestName) {
     const g = $('#coverGuest');
