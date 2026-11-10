@@ -13,7 +13,10 @@
   const params = new URLSearchParams(location.search);
   const guestName = (params.get('ten') || '').trim().slice(0, 60);
   const side = params.get('ben'); // 'nhatrai' | 'nhagai' | null
-  const events = W.events.filter((e) => !side || e.side === 'all' || e.side === side);
+  const events = W.events
+    .filter((e) => !side || e.side === 'all' || e.side === side)
+    .sort((a, b) => new Date(a.datetime) - new Date(b.datetime));
+  const multiline = (s) => esc(s).replace(/\n/g, '<br>');
 
   /* ---------- Họa tiết dùng chung ---------- */
   const flourish = `
@@ -34,7 +37,7 @@
   const nameBlock = (p) => `
         <span class="hero__person">
           ${p.saint ? `<small class="hero__saint">${esc(p.saint)}</small>` : ''}
-          <span class="name-font">${esc(p.name)}</span>
+          <span class="name-font fit-line" data-fit="hero-name">${esc(p.name)}</span>
         </span>`;
   const timeText = (d) => `${pad(d.getHours())} giờ ${d.getMinutes() ? pad(d.getMinutes()) : ''}`.trim();
 
@@ -68,12 +71,12 @@
         </figure>
         <div class="couple__info">
           <h3 class="couple__side">${side}</h3>
-          <p class="couple__parent">${esc(p.father)}</p>
-          <p class="couple__parent">${esc(p.mother)}</p>
+          <p class="couple__parent fit-line" data-fit="parent">${esc(p.father)}</p>
+          <p class="couple__parent fit-line" data-fit="parent">${esc(p.mother)}</p>
           <p class="couple__addr">${esc(p.address)}</p>
           <p class="couple__role">${esc(role)}</p>
           ${p.saint ? `<p class="couple__saint">${esc(p.saint)}</p>` : ''}
-          <p class="couple__name name-font">${esc(p.name)}</p>
+          <p class="couple__name name-font fit-line" data-fit="couple-name">${esc(p.name)}</p>
         </div>
       </article>`;
     return `
@@ -90,13 +93,11 @@
       const d = new Date(e.datetime);
       return `
       <li class="event">
-        <h3 class="event__title">${esc(e.title)}</h3>
+        ${e.title ? `<h3 class="event__title">${esc(e.title)}</h3>` : ''}
         <p class="event__time">${timeText(d)}</p>
         <p class="event__date">${dateLine(d)}</p>
-        <p class="event__lunar">Tức ${Lunar.lunarText(d)}</p>
+        <p class="event__lunar">(Nhằm ${Lunar.lunarText(d)})</p>
         <p class="event__place">${esc(e.place)}</p>
-        <p class="event__addr">${esc(e.address)}</p>
-        <a class="link" href="${esc(mapUrl(e))}" target="_blank" rel="noopener">Xem chỉ đường</a>
       </li>`;
     }).join('');
     return `
@@ -104,7 +105,7 @@
       ${heading('Thư mời')}
       <p class="invite__lead">Trân trọng kính mời</p>
       <p class="invite__guest script">${guestName ? esc(guestName) : 'Quý khách'}</p>
-      <p class="invite__text">${esc(W.inviteText)}</p>
+      <p class="invite__text fit-line">${esc(W.inviteText)}</p>
       <ol class="events">${items}</ol>
     </section>`;
   }
@@ -138,24 +139,27 @@
     </section>`;
   }
 
+  /* Địa điểm tổ chức: tên nơi, địa chỉ, bản đồ và nút chỉ đường (đặt sau Save the date) */
   function mapSection() {
-    if (W.showMaps === false || !events.length) return '';
+    if (!events.length) return '';
     const items = events.map((e) => `
       <div class="venue">
-        <p class="venue__event">${esc(e.title)}</p>
+        ${events.length > 1 && e.title ? `<p class="venue__event">${esc(e.title)}</p>` : ''}
         <p class="venue__name">${esc(e.place)}</p>
-        <p class="venue__addr">${esc(e.address)}</p>
+        <p class="venue__addr">${multiline(e.address)}</p>
+        ${W.showMaps === false ? '' : `
         <div class="venue__map">
           <iframe src="${esc(mapsEmbed(e.mapQuery || e.address))}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Bản đồ ${esc(e.place)}"></iframe>
-        </div>
-        <a class="btn" href="${esc(mapUrl(e))}" target="_blank" rel="noopener">Mở Google Maps chỉ đường</a>
+        </div>`}
+        <a class="btn" href="${esc(mapUrl(e))}" target="_blank" rel="noopener">Xem chỉ đường</a>
       </div>`).join('');
     return `
     <section class="section venues" id="dia-diem">
-      ${heading('Địa điểm')}
+      ${heading('Địa điểm tổ chức')}
       ${items}
     </section>`;
   }
+
 
   function album() {
     if (!W.album || !W.album.length) return '';
@@ -238,6 +242,33 @@
 
   /* ---------- Dựng trang ---------- */
   $('#card').innerHTML = hero() + families() + invitation() + calendar() + mapSection() + album() + rsvp() + gifts() + footer();
+
+  /* Giữ chữ trên 1 dòng: nếu dòng dài hơn khung thì thu nhỏ cỡ chữ cho vừa
+     (không nhỏ hơn 70% cỡ gốc). Các dòng cùng data-fit (vd hai tên) dùng chung
+     cỡ nhỏ nhất để trông đều nhau. Chạy lại khi font tải xong và khi xoay màn hình. */
+  function fitLines() {
+    const els = $$('.fit-line');
+    const sizes = new Map();
+    els.forEach((el) => {
+      el.style.fontSize = '';
+      const base = parseFloat(getComputedStyle(el).fontSize);
+      const box = el.parentElement.clientWidth;
+      let size = base;
+      while (el.scrollWidth > box && size > base * 0.7) {
+        size -= 0.5;
+        el.style.fontSize = size + 'px';
+      }
+      const g = el.dataset.fit;
+      if (g) sizes.set(g, Math.min(sizes.get(g) || Infinity, size));
+    });
+    els.forEach((el) => {
+      const g = el.dataset.fit;
+      if (g) el.style.fontSize = sizes.get(g) + 'px';
+    });
+  }
+  fitLines();
+  if (document.fonts) document.fonts.ready.then(fitLines);
+  window.addEventListener('resize', fitLines);
 
   $$('[data-bind]').forEach((el) => {
     // data-bind="groom.shortName|groom.name": lấy giá trị đầu tiên có trong config
