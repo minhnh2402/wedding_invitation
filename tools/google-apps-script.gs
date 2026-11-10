@@ -13,7 +13,7 @@ const SHEET_NAME = 'Xác nhận';
 /* ===== Cài đặt email ===== */
 const GUI_MAIL = true;   // false = tắt gửi mail, chỉ lưu vào Sheets
 // Email của cô dâu chú rể (người nhận báo), nhiều email thì cách nhau bằng dấu phẩy.
-const MAIL_NHAN = 'email-co-dau@gmail.com, email-chu-re@gmail.com';
+const MAIL_NHAN = 'minhthuy0895@gmail.com';
 // true = gửi thêm một bản cho bạn (chủ tài khoản Google chạy script này) để theo dõi.
 const GUI_CHO_TOI = true;
 // Tên người gửi hiện trong hộp thư của cô dâu chú rể.
