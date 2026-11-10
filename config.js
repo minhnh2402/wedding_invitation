@@ -73,7 +73,7 @@ window.WEDDING = {
 
   /* Link Google Apps Script để lưu xác nhận tham dự vào Google Sheets
      (hướng dẫn trong README). Để '' thì form chỉ chạy thử, không lưu. */
-  rsvpUrl: '',
+  rsvpUrl: 'https://script.google.com/u/0/home/projects/1TbErW7NU9YmmsAkYUt4E7FFXwD4z16z_ftcxwCfdfr5OGRvEZQNBJp0f/edit',
 
   /* Mừng cưới. Mã QR tạo tự động qua VietQR từ bankBin + accountNo.
      Mã BIN: Vietcombank 970436, MB 970422, Techcombank 970407, VietinBank 970415,
